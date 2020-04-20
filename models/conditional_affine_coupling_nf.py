@@ -29,6 +29,8 @@ class ConditionalNormalizingFlow(nn.Module):
         if self.use_cuda:
             self.cuda()
             nn.ModuleList(self.transforms).cuda()
+            self.base_dist = dist.Normal(torch.zeros(input_dim).cuda(),
+                                         torch.ones(input_dim).cuda())
     
     def model(self, X=None, H=None):
         N = len(X) if X is not None else None
